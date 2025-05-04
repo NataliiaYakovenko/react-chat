@@ -1,9 +1,9 @@
 import React from 'react'
+import MessangerPage from './pages/MessangerPage/MessangerPage'
+import  './App.css'
 
 function App() {
-  return (
-    <h1>Ready for development</h1>
-  )
+  return <MessangerPage/>
 }
 
 export default App
