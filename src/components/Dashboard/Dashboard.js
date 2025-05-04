@@ -20,7 +20,7 @@ function Dashboard() {
   const [user, setUser] = useState({
     id: 1,
     username: "Main admin 24",
-    imageSrc: "https://robohash.org/solder",
+    imgSrc: "https://robohash.org/main-admin-24?set=set4",
   });
 
   const [state, dispatch] = useReducer(messageReducer, initialState);
@@ -41,6 +41,20 @@ function Dashboard() {
       });
   }, []);
 
+  const createMessage=(text)=>{
+    const neWMessage={
+      body: text,
+      id: state.messages.length+1,
+      user
+    }
+
+    dispatch({
+      type:ACTIONS.ADD_NEW_MESSAGE,
+      payload: neWMessage
+    })
+
+  }
+
   return (
     <UserContext.Provider value={user}>
       <main className={styles.container}>
@@ -48,7 +62,7 @@ function Dashboard() {
 
         <section className={styles.wrapper}>
           <Chat deshboardState={state} />
-          <MessageArea />
+          <MessageArea sendMessage={createMessage}/>
         </section>
       </main>
     </UserContext.Provider>

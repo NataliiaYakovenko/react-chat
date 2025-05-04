@@ -26,6 +26,17 @@ function messageReducer(state, action) {
         isLoading: false,
       };
     }
+    case ACTIONS.ADD_NEW_MESSAGE:{
+        const {
+            payload:newMessage
+        } = action
+     const newMessagesArray = [...state.messages,newMessage]
+     return{
+        ...state,
+        messages: newMessagesArray
+
+     }
+    }
     default:
       return state;
   }

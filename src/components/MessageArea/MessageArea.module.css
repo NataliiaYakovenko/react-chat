@@ -2,3 +2,7 @@
   width: 75%;
   background-color: rgb(229, 244, 188);
 }
+
+textarea{
+    resize: none;
+}
