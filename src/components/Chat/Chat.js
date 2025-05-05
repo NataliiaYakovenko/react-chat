@@ -15,7 +15,15 @@ const Chat = (props) => {
       user: { username },
     } = currentMessage;
 
-    return <ChatItem key={id} user={user} username={username} body={body} />;
+    return (
+      <ChatItem
+        key={id}
+        messageId={id}
+        user={user}
+        username={username}
+        body={body}
+      />
+    );
   });
 
   console.log(props);

@@ -4,9 +4,11 @@ import Chat from "../Chat/Chat";
 import MessageArea from "../MessageArea/MessageArea";
 import styles from "./Dashboard.module.css";
 import UserContext from "../../contexts/UserContext";
+import MessageContext from "../../contexts/MessageContext";
 import { getMessages } from "../../api/api";
 import CONSTANTS from "../../constants/constants";
 import messageReducer from "../../reducers/MessageReducer";
+import { type } from "@testing-library/user-event/dist/type";
 
 const { ACTIONS } = CONSTANTS;
 
@@ -41,31 +43,44 @@ function Dashboard() {
       });
   }, []);
 
-  const createMessage=(text)=>{
-    const neWMessage={
+  const createMessage = (text) => {
+    const neWMessage = {
       body: text,
-      id: state.messages.length+1,
-      user
-    }
+      id: state.messages.length + 1,
+      user,
+    };
 
     dispatch({
-      type:ACTIONS.ADD_NEW_MESSAGE,
-      payload: neWMessage
-    })
+      type: ACTIONS.ADD_NEW_MESSAGE,
+      payload: neWMessage,
+    });
+  };
 
-  }
+  const deleteMessage = (id) => {
+    dispatch({
+      type: ACTIONS.DELETE_MESSAGE,
+      payload: id,
+    });
+  };
 
   return (
-    <UserContext.Provider value={user}>
-      <main className={styles.container}>
-        <DialigList />
+    <MessageContext.Provider
+      value={{
+        messageState: state,
+        deleteMessage,
+      }}
+    >
+      <UserContext.Provider value={user}>
+        <main className={styles.container}>
+          <DialigList />
 
-        <section className={styles.wrapper}>
-          <Chat deshboardState={state} />
-          <MessageArea sendMessage={createMessage}/>
-        </section>
-      </main>
-    </UserContext.Provider>
+          <section className={styles.wrapper}>
+            <Chat deshboardState={state} />
+            <MessageArea sendMessage={createMessage} />
+          </section>
+        </main>
+      </UserContext.Provider>
+    </MessageContext.Provider>
   );
 }
 
